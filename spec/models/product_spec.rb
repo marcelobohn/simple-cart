@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "create" do
+    it "default value of price" do
+      product = Product.create(name: 'Bubble')
+      expect(product.price).to eq 0
+    end
+  end
 end
