@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118160934) do
+ActiveRecord::Schema.define(version: 20171119162737) do
 
   create_table "cart_products", force: :cascade do |t|
     t.integer "cart_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20171118160934) do
     t.date "finish"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "session"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
