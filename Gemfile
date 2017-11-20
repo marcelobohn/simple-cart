@@ -39,8 +39,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  # Behaviour Driven Development for Ruby
-  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec-rails', '~> 3.6'       # Behaviour Driven Development for Ruby
 end
 
 
