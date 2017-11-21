@@ -17,8 +17,9 @@ RSpec.describe CartController, type: :controller do
 
     it "returns json" do
       get :new, format: :json
-      expect(response).to have_http_status(:success)
       json_body = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:success)
       expect(json_body["session"]).not_to be_empty
     end
   end
@@ -30,16 +31,37 @@ RSpec.describe CartController, type: :controller do
       post :add, format: :json, params: { id: product.id, amount: 5 }
       expect(response).to have_http_status(:success)
       json_body = JSON.parse(response.body)
+
       expect(json_body["value"]).not_to be_empty
       expect(json_body["value"].to_f).to be 50.0
     end
 
     it "try add not exists product" do
       post :add, format: :json, params: { id: 0, amount: 5 }
-      expect(response).to have_http_status(:success)
       json_body = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:success)
       expect(json_body["error"]).to eq "Product not found"
     end
   end
+
+  describe "POST #add" do
+    before {
+      cart = Cart.find_by_session(session.id) || Cart.create(session: session.id)
+      cart.cart_products.create!(product: p, amount: 2, value: p.price * 2)
+    }
+
+    let!(:p) { Product.create! name: 'Little Ruby', price: 10 }
+
+    fit "update product in cart" do
+      post :update, format: :json, params: { id: p.id, amount: 10 }
+      json_body = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:success)
+      expect(json_body["value"]).not_to be_empty
+      expect(json_body["value"].to_f).to be 100.0
+    end
+  end
+
 
 end

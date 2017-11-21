@@ -14,12 +14,24 @@ class CartController < ApplicationController
   def add
     product = Product.find_by_id params[:id]
     if !product.nil?
-      @product = @cart.cart_products.create! product: product, amount: params[:amount].to_i, value: product.price * params[:amount].to_i
-      render json: @product
+      cart_product = @cart.cart_products.create! product: product, amount: params[:amount].to_i, value: product.price * params[:amount].to_i
+      render json: cart_product
     else
       render json: { error: 'Product not found' }
     end
   end
+
+  def update
+    product = Product.find_by_id params[:id]
+    cart_product = @cart.cart_products.find_by_id params[:id]
+    if !product.nil? and !cart_product.nil?
+      cart_product.update! amount: params[:amount].to_i, value: product.price * params[:amount].to_i
+      render json: cart_product
+    else
+      render json: { error: 'Product not found' }
+    end
+  end
+
 
   private
     def set_cart
