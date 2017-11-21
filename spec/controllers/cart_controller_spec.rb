@@ -23,7 +23,7 @@ RSpec.describe CartController, type: :controller do
     end
   end
 
-  describe "GET #add" do
+  describe "POST #add" do
     let!(:product) { Product.create! name: 'Little Ruby', price: 10 }
 
     it "add product in cart" do
