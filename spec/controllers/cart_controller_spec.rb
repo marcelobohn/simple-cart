@@ -53,7 +53,7 @@ RSpec.describe CartController, type: :controller do
 
     let!(:p) { Product.create! name: 'Little Ruby', price: 10 }
 
-    fit "update product in cart" do
+    it "update product in cart" do
       post :update, format: :json, params: { id: p.id, amount: 10 }
       json_body = JSON.parse(response.body)
 
