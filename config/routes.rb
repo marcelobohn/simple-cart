@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'cart', to: 'cart#index'
   get 'cart/new'
+  post 'cart/add', to: 'cart#add'
 
   resources :products
   resources :users
