@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'cart#index'
   get 'cart', to: 'cart#index'
   get 'cart/new'
   post 'cart/add', to: 'cart#add'

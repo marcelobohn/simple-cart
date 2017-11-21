@@ -1,3 +1,4 @@
-<h1>Cart#index</h1>
-<p>Find me in app/views/cart/index.html.erb</p>
-<%= @se %>
+<h1>Simple cart</h1>
+<p>Cart ID <%= @cart.session %></p>
+<%= render 'add_product' %>
+<%= render 'list_products' %>
