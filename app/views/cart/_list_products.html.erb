@@ -1,1 +1,22 @@
-<p>Products in the cart</p>
+<h2>Products in the cart</h2>
+Count: <%= @cart.cart_products.count  %>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Unit</th>
+      <th>Amout</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart.cart_products.each do |cp| %>
+      <tr>
+        <td><%= cp.product.name %></td>
+        <td><%= cp.product.price %></td>
+        <td><%= cp.amount %></td>
+        <td><%= cp.value %></td>
+      </tr>
+    <% end %>
+    </tbody>
+</table>

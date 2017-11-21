@@ -2,6 +2,7 @@ class CartController < ApplicationController
   before_action :set_cart
 
   def index
+    @products = Product.all
   end
 
   def new
