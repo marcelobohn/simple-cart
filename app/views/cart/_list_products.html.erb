@@ -1,22 +1,24 @@
-<h2>Products in the cart</h2>
-Count: <%= products.count  %>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Unit</th>
-      <th>Amout</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% products.each do |cp| %>
+<% if products.count > 0 %>
+  <h4 class="card-title">Products in the cart</h4>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= cp.product.name %></td>
-        <td><%= cp.product.price %></td>
-        <td><%= cp.amount %></td>
-        <td><%= cp.value %></td>
+        <th scope="col">Name</th>
+        <th scope="col">Unit</th>
+        <th scope="col">Amout</th>
+        <th scope="col">Total</th>
       </tr>
-    <% end %>
-    </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% products.each do |cp| %>
+        <tr>
+          <td scope="row"><%= cp.product.name %></td>
+          <td><%= cp.product.price %></td>
+          <td><%= cp.amount %></td>
+          <td><%= cp.value %></td>
+        </tr>
+      <% end %>
+    </tbody>          
+  </table>
+  <h5>Count: <%= products.count  %></h5>
+<% end %>

@@ -1,6 +1,8 @@
-<h1>Simple cart</h1>
 <p>Cart ID <%= @cart.session %></p>
-<%= render 'add_product' %>
-<div id="products_grid" >
+<div id="form_add_product" >
+  <%= render 'add_product' %>
+</div>
+<br />
+<div id="grid_products" >
   <%= render partial: 'list_products', locals: {products: @cart.cart_products} %>
 </div>  

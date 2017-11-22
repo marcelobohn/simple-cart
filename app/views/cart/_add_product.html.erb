@@ -1,6 +1,24 @@
-<h2>New Product</h2>
-<%= form_tag({controller: "cart", action: "add"}, method: "post", remote: true) do |f| %>
-  <%= select_tag(:id, options_for_select(@products.collect {|a| [a.name, a.id]})) %>
-  <%= text_field_tag "amount" %>
-  <%= button_tag "Add" %>
-<% end %>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">New Product</h4>
+      <%= form_tag({controller: "cart", action: "add"}, method: "post", remote: true, class: "navbar-form navbar-left") do |f| %>
+        <div class="form-row">    
+          <div class="form-group col-md-6">
+            <%= label_tag :fname, "Product:", class: "control-label" %>
+            <%= select_tag(:id, options_for_select(@products.collect {|a| [a.name, a.id]}), class: "form-control") %>
+          </div>
+
+          <div class="form-group col-md-4">
+            <%= label_tag :fname, "Amount:", class: "control-label" %>
+            <%= text_field_tag "amount", nil, class: "form-control" %>
+          </div>            
+        </div>
+        <div class="form-row">    
+          <div class="form-group col-md-2">            
+            <%= button_tag "Add", class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+
+  </div>
+</div>
