@@ -1,5 +1,5 @@
 <h2>Products in the cart</h2>
-Count: <%= @cart.cart_products.count  %>
+Count: <%= products.count  %>
 <table>
   <thead>
     <tr>
@@ -10,7 +10,7 @@ Count: <%= @cart.cart_products.count  %>
     </tr>
   </thead>
   <tbody>
-    <% @cart.cart_products.each do |cp| %>
+    <% products.each do |cp| %>
       <tr>
         <td><%= cp.product.name %></td>
         <td><%= cp.product.price %></td>

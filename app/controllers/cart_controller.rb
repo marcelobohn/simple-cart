@@ -16,7 +16,11 @@ class CartController < ApplicationController
     product = Product.find_by_id params[:id]
     if !product.nil?
       cart_product = @cart.cart_products.create! product: product, amount: params[:amount].to_i, value: product.price * params[:amount].to_i
-      render json: cart_product
+      
+      respond_to do |format|
+        format.json { render json: cart_product }
+        format.js
+      end      
     else
       render json: { error: 'Product not found' }
     end

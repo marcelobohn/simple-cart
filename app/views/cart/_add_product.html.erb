@@ -1,5 +1,5 @@
 <h2>New Product</h2>
-<%= form_tag({controller: "cart", action: "add"}, method: "post") do |f| %>
+<%= form_tag({controller: "cart", action: "add"}, method: "post", remote: true) do |f| %>
   <%= select_tag(:id, options_for_select(@products.collect {|a| [a.name, a.id]})) %>
   <%= text_field_tag "amount" %>
   <%= button_tag "Add" %>
