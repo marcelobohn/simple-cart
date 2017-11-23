@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'cart/new'
   post 'cart/add', to: 'cart#add'
   post 'cart/update', to: 'cart#update'
+  post 'cart/remove', to: 'cart#remove'
 
   resources :products
   resources :users

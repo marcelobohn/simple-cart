@@ -16,11 +16,11 @@ class CartController < ApplicationController
     product = Product.find_by_id params[:id]
     if !product.nil?
       cart_product = @cart.cart_products.create! product: product, amount: params[:amount].to_i, value: product.price * params[:amount].to_i
-      
+
       respond_to do |format|
         format.json { render json: cart_product }
         format.js
-      end      
+      end
     else
       render json: { error: 'Product not found' }
     end
@@ -32,6 +32,16 @@ class CartController < ApplicationController
     if !product.nil? and !cart_product.nil?
       cart_product.update! amount: params[:amount].to_i, value: product.price * params[:amount].to_i
       render json: cart_product
+    else
+      render json: { error: 'Product not found' }
+    end
+  end
+
+  def remove
+    cart_product = CartProduct.find_by_id params[:id]
+    if !cart_product.nil?
+      cart_product.delete
+      render json: { message: 'Product removed' }
     else
       render json: { error: 'Product not found' }
     end

@@ -63,5 +63,23 @@ RSpec.describe CartController, type: :controller do
     end
   end
 
+  describe "POST #remove" do
+    before {
+      cart.cart_products.create!(product: p, amount: 2, value: p.price * 2)
+    }
+
+    let!(:p) { Product.create! name: 'Little Ruby', price: 10 }
+    let!(:cart) { cart = Cart.find_by_session(session.id) || Cart.create(session: session.id) }
+
+    it "remove product in cart" do
+
+      post :remove, format: :json, params: { id: cart.cart_products.first.id }
+      json_body = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:success)
+      expect(json_body["message"]).to eq "Product removed"
+    end
+  end
+
 
 end
