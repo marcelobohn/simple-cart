@@ -1,24 +1,23 @@
-<div class="card">
+<div class="card card-sm">
+  <h5 class="card-header">New Product</h3>
   <div class="card-body">
-    <h4 class="card-title">New Product</h4>
-      <%= form_tag({controller: "cart", action: "add"}, method: "post", remote: true, class: "navbar-form navbar-left") do |f| %>
-        <div class="form-row">    
-          <div class="form-group col-md-8">
-            <%= label_tag :fname, "Product:", class: "control-label" %>
-            <%= select_tag(:id, options_for_select(@products.collect {|a| [a.name, a.id]}), class: "form-control") %>
-          </div>
-
-          <div class="form-group col-md-4">
-            <%= label_tag :fname, "Amount:", class: "control-label" %>
-            <%= text_field_tag "amount", nil, class: "form-control" %>
-          </div>            
+    <%= form_tag({controller: "cart", action: "add"}, method: "post", remote: true, class: "navbar-form navbar-left") do |f| %>
+      <div class="form-row">    
+        <div class="form-group col-md-8">
+          <%= label_tag :fname, "Product:", class: "control-label" %>
+          <%= select_tag(:id, options_for_select(@products.collect {|a| [a.name, a.id]}), class: "form-control form-control-sm") %>
         </div>
-        <div class="form-row">    
-          <div class="form-group col-md-2">            
-            <%= button_tag "Add", class: 'btn btn-primary' %>
-          </div>
-        </div>
-      <% end %>
 
+        <div class="form-group col-md-4">
+          <%= label_tag :fname, "Amount:", class: "control-label" %>
+          <%= text_field_tag "amount", nil, class: "form-control form-control-sm" %>
+        </div>            
+      </div>
+      <div class="form-row">    
+        <div class="form-group col-md-2">            
+          <%= button_tag "Add", class: 'btn btn-primary btn-sm' %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

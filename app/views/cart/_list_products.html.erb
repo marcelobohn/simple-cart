@@ -1,26 +1,32 @@
 <% if products.count > 0 %>
   <h4 class="card-title">Products in the cart</h4>
-  <table class="table">
+  <table class="table table-bordered table-sm">
     <thead>
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Unit</th>
-        <th scope="col">Amout</th>
-        <th scope="col">Total</th>
-        <th scope="col"></th>
+        <th scope="col" class="text-center">Name</th>
+        <th scope="col" class="text-center">Unit</th>
+        <th scope="col" class="text-center">Amout</th>
+        <th scope="col" class="text-center">Total</th>
+        <th scope="col" class="text-center"></th>
       </tr>
     </thead>
     <tbody>
       <% products.each do |cp| %>
         <tr>
           <td scope="row"><%= cp.product.name %></td>
-          <td><%= format_value cp.product.price %></td>
-          <td><%= cp.amount %></td>
-          <td><%= format_value cp.value %></td>
-          <td><%= link_to 'Remove', {action: 'remove', id: cp.id}, method: :post, data: { confirm: 'Are you sure?' }, remote: true, class: 'btn btn-danger' %></td>
+          <td class="text-right"><%= format_value cp.product.price %></td>
+          <td class="text-center"><%= cp.amount %></td>
+          <td class="text-right"><%= format_value cp.value %></td>
+          <td class="text-right"><%= link_to 'Remove', {action: 'remove', id: cp.id}, method: :post, data: { confirm: 'Are you sure?' }, remote: true, class: 'btn btn-danger btn-sm' %></td>
         </tr>
       <% end %>
     </tbody>
+    <tr class="table-active">
+      <td scope="row">Itens <%= products.count  %></td>
+      <td></td>
+      <td class="text-center"><%= products.map(&:amount).sum %></td>
+      <td class="text-right"><%= format_value products.map(&:value).sum %></td>
+      <td></td>
+    </tr>    
   </table>
-  <h5>Count: <%= products.count  %></h5>
 <% end %>
