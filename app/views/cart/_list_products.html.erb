@@ -17,9 +17,7 @@
           <td><%= format_value cp.product.price %></td>
           <td><%= cp.amount %></td>
           <td><%= format_value cp.value %></td>
-          <td><%= cp.id %>
-            <%= link_to 'Destroy', {action: 'remove', id: cp.id}, method: :post, data: { confirm: 'Are you sure?' }, remote: true %>
-          </td>
+          <td><%= link_to 'Remove', {action: 'remove', id: cp.id}, method: :post, data: { confirm: 'Are you sure?' }, remote: true, class: 'btn btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>

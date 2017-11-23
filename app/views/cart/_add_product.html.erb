@@ -3,7 +3,7 @@
     <h4 class="card-title">New Product</h4>
       <%= form_tag({controller: "cart", action: "add"}, method: "post", remote: true, class: "navbar-form navbar-left") do |f| %>
         <div class="form-row">    
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-8">
             <%= label_tag :fname, "Product:", class: "control-label" %>
             <%= select_tag(:id, options_for_select(@products.collect {|a| [a.name, a.id]}), class: "form-control") %>
           </div>
