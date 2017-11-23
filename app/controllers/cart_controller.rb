@@ -1,5 +1,5 @@
 class CartController < ApplicationController
-  before_action :set_cart
+  before_action :set_cart, except: [:remove]
 
   def index
     @products = Product.all
@@ -40,8 +40,12 @@ class CartController < ApplicationController
   def remove
     cart_product = CartProduct.find_by_id params[:id]
     if !cart_product.nil?
+      @cart = Cart.find(cart_product.cart.id)
       cart_product.delete
-      render json: { message: 'Product removed' }
+      respond_to do |format|
+        format.json { render message: 'Product removed' }
+        format.js
+      end
     else
       render json: { error: 'Product not found' }
     end

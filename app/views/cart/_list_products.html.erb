@@ -7,6 +7,7 @@
         <th scope="col">Unit</th>
         <th scope="col">Amout</th>
         <th scope="col">Total</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -16,9 +17,12 @@
           <td><%= cp.product.price %></td>
           <td><%= cp.amount %></td>
           <td><%= cp.value %></td>
+          <td><%= cp.id %>
+            <%= link_to 'Destroy', {action: 'remove', id: cp.id}, method: :post, data: { confirm: 'Are you sure?' }, remote: true %>
+          </td>
         </tr>
       <% end %>
-    </tbody>          
+    </tbody>
   </table>
   <h5>Count: <%= products.count  %></h5>
 <% end %>
