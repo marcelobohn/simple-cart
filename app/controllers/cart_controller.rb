@@ -3,6 +3,10 @@ class CartController < ApplicationController
 
   def index
     @products = Product.all
+    respond_to do |format|
+      format.html
+      format.json { render json: { cart: @cart, message: @message } }      
+    end    
   end
 
   def new
@@ -54,6 +58,10 @@ class CartController < ApplicationController
   private
     def set_cart
       @cart = Cart.find_by_session(session.id) || Cart.create(session: session.id)
+      if not @cart.is_valid?
+        @cart = nil
+        @message = 'Cart was expired'
+      end
     end
 
 end

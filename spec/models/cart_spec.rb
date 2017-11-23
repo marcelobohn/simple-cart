@@ -13,4 +13,18 @@ RSpec.describe Cart, type: :model do
       expect(cart.created_at.strftime("%Y-%m-%d")).to eq(Date.today.strftime("%Y-%m-%d"))
     end
   end
+  
+ describe "#is_valid" do
+    it "cart valid" do
+      cart = Cart.create(session: '672eefead958231d8e9db22c1b4d1954')
+      expect(cart.is_valid?).to be true
+    end
+   
+    it "cart invalid" do
+      cart = Cart.create(session: '672eefead958231d8e9db22c1b4d1954')
+      cart.update(updated_at: Date.today-3)
+      expect(cart.is_valid?).to be false
+    end   
+ end
+  
 end
