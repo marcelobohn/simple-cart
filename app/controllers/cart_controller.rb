@@ -43,14 +43,13 @@ class CartController < ApplicationController
       @cart = Cart.find(cart_product.cart.id)
       cart_product.delete
       respond_to do |format|
-        format.json { render message: 'Product removed' }
+        format.json { render json: { message: 'Product removed' } }
         format.js
       end
     else
       render json: { error: 'Product not found' }
     end
   end
-
 
   private
     def set_cart

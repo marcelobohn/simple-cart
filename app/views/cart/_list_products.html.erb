@@ -14,9 +14,9 @@
       <% products.each do |cp| %>
         <tr>
           <td scope="row"><%= cp.product.name %></td>
-          <td><%= cp.product.price %></td>
+          <td><%= format_value cp.product.price %></td>
           <td><%= cp.amount %></td>
-          <td><%= cp.value %></td>
+          <td><%= format_value cp.value %></td>
           <td><%= cp.id %>
             <%= link_to 'Destroy', {action: 'remove', id: cp.id}, method: :post, data: { confirm: 'Are you sure?' }, remote: true %>
           </td>

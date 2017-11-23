@@ -1,15 +1,9 @@
 require 'rails_helper'
-
-# Specs in this file have access to a helper object that includes
-# the CartHelper. For example:
-#
-# describe CartHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe CartHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#format_value" do
+    it "currency format in view" do
+      expect(helper.format_value(1)).to eq("$1.00")
+      expect(helper.format_value(10000)).to eq("$10,000.00")
+    end
+  end  
 end

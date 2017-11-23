@@ -12,7 +12,7 @@ RSpec.describe CartController, type: :controller do
   describe "GET #new" do
     it "returns redirect" do
       get :new
-      expect(response).to redirect_to "/cart?notice=Cart+was+successfully+created."
+      expect(response).to redirect_to "/?notice=Cart+was+successfully+created."
     end
 
     it "returns json" do
@@ -72,7 +72,6 @@ RSpec.describe CartController, type: :controller do
     let!(:cart) { cart = Cart.find_by_session(session.id) || Cart.create(session: session.id) }
 
     it "remove product in cart" do
-
       post :remove, format: :json, params: { id: cart.cart_products.first.id }
       json_body = JSON.parse(response.body)
 
@@ -80,6 +79,5 @@ RSpec.describe CartController, type: :controller do
       expect(json_body["message"]).to eq "Product removed"
     end
   end
-
 
 end
