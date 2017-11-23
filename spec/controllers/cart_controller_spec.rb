@@ -7,18 +7,18 @@ RSpec.describe CartController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
     end
-    
+
     it "returns cart expired" do
       get :index
       expect(response).to have_http_status(:success)
-      
+
       # make the cart to expired
       Cart.find_by_session(session.id).update!(updated_at: Date.today - 3)
-      
+
       get :index, format: :json
       json_body = JSON.parse(response.body)
       expect(json_body["message"]).to eq "Cart was expired"
-    end    
+    end
   end
 
   describe "GET #new" do
@@ -58,20 +58,27 @@ RSpec.describe CartController, type: :controller do
   end
 
   describe "POST #update" do
-    before {
-      cart = Cart.find_by_session(session.id) || Cart.create(session: session.id)
-      cart.cart_products.create!(product: p, amount: 2, value: p.price * 2)
-    }
-
     let!(:p) { Product.create! name: 'Little Ruby', price: 10 }
+    let!(:cart) { Cart.find_by_session(session.id) || Cart.create(session: session.id) }
+    let!(:cart_product) { cart.cart_products.create!(product: p, amount: 2, value: p.price * 2) }
 
     it "update product in cart" do
-      post :update, format: :json, params: { id: p.id, amount: 10 }
+      post :update, format: :json, params: { id: cart_product.id, amount: 10 }
       json_body = JSON.parse(response.body)
 
       expect(response).to have_http_status(:success)
       expect(json_body["value"]).not_to be_empty
       expect(json_body["value"].to_f).to be 100.0
+    end
+
+    it "update product in cart" do
+      p.update price: 20
+      post :update, format: :json, params: { id: cart_product.id, amount: 10 }
+      json_body = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:success)
+      expect(json_body["value"]).not_to be_empty
+      expect(json_body["value"].to_f).to be 200.0
     end
   end
 

@@ -5,8 +5,8 @@ class CartController < ApplicationController
     @products = Product.all
     respond_to do |format|
       format.html
-      format.json { render json: { cart: @cart, message: @message } }      
-    end    
+      format.json { render json: { cart: @cart, message: @message } }
+    end
   end
 
   def new
@@ -31,11 +31,13 @@ class CartController < ApplicationController
   end
 
   def update
-    product = Product.find_by_id params[:id]
     cart_product = @cart.cart_products.find_by_id params[:id]
-    if !product.nil? and !cart_product.nil?
-      cart_product.update! amount: params[:amount].to_i, value: product.price * params[:amount].to_i
-      render json: cart_product
+    if !cart_product.nil?
+      cart_product.update! amount: params[:amount].to_i, value: cart_product.product.price * params[:amount].to_i
+      respond_to do |format|
+        format.json { render json: cart_product }
+        format.js
+      end
     else
       render json: { error: 'Product not found' }
     end
