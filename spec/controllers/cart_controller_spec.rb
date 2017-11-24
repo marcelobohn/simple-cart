@@ -45,7 +45,7 @@ RSpec.describe CartController, type: :controller do
       json_body = JSON.parse(response.body)
 
       expect(json_body["value"]).not_to be_empty
-      expect(json_body["value"].to_f).to be 50.0
+      expect(json_body["value"].to_f * json_body["amount"].to_f).to be 50.0
     end
 
     it "try add not exists product" do
@@ -60,15 +60,16 @@ RSpec.describe CartController, type: :controller do
   describe "POST #update" do
     let!(:p) { Product.create! name: 'Little Ruby', price: 10 }
     let!(:cart) { Cart.find_by_session(session.id) || Cart.create(session: session.id) }
-    let!(:cart_product) { cart.cart_products.create!(product: p, amount: 2, value: p.price * 2) }
+    let!(:cart_product) { cart.cart_products.create!(product: p, amount: 2, value: p.price) }
 
     it "update product in cart" do
       post :update, format: :json, params: { id: cart_product.id, amount: 10 }
       json_body = JSON.parse(response.body)
 
       expect(response).to have_http_status(:success)
-      expect(json_body["value"]).not_to be_empty
-      expect(json_body["value"].to_f).to be 100.0
+      expect(json_body["cart_product"]["value"]).not_to be_empty
+      expect(json_body["cart_product"]["value"].to_f * json_body["cart_product"]["amount"].to_f).to be 100.0
+      expect(json_body["message"]).to be_empty
     end
 
     it "update product in cart" do
@@ -77,8 +78,9 @@ RSpec.describe CartController, type: :controller do
       json_body = JSON.parse(response.body)
 
       expect(response).to have_http_status(:success)
-      expect(json_body["value"]).not_to be_empty
-      expect(json_body["value"].to_f).to be 200.0
+      expect(json_body["cart_product"]["value"]).not_to be_empty
+      expect(json_body["cart_product"]["value"].to_f * json_body["cart_product"]["amount"].to_f).to be 200.0
+      expect(json_body["message"]).to eq "the product price was updated"
     end
   end
 

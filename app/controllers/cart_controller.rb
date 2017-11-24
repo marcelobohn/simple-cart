@@ -19,7 +19,7 @@ class CartController < ApplicationController
   def add
     product = Product.find_by_id params[:id]
     if !product.nil?
-      cart_product = @cart.cart_products.create! product: product, amount: params[:amount].to_i, value: product.price * params[:amount].to_i
+      cart_product = @cart.cart_products.create! product: product, amount: params[:amount].to_i, value: product.price
 
       respond_to do |format|
         format.json { render json: cart_product }
@@ -33,9 +33,10 @@ class CartController < ApplicationController
   def update
     cart_product = @cart.cart_products.find_by_id params[:id]
     if !cart_product.nil?
-      cart_product.update! amount: params[:amount].to_i, value: cart_product.product.price * params[:amount].to_i
+      @message = 'the product price was updated' if cart_product.value != cart_product.product.price
+      cart_product.update! amount: params[:amount].to_i, value: cart_product.product.price
       respond_to do |format|
-        format.json { render json: cart_product }
+        format.json { render json: { cart_product: cart_product, message: @message || '' } }
         format.js
       end
     else

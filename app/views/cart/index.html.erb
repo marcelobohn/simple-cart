@@ -9,6 +9,6 @@
   </div>
   <br />
   <div id="grid_products" >
-    <%= render partial: 'list_products', locals: {products: @cart.cart_products} %>
-  </div>  
+    <%= render partial: 'list_products', locals: {products: @cart.cart_products, message: nil} %>
+  </div>
 <% end %>

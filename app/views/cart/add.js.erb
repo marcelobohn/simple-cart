@@ -1,1 +1,1 @@
-document.getElementById('grid_products').innerHTML = "<%= escape_javascript(render partial: 'list_products', locals: { products: @cart.cart_products } ) %>"
+document.getElementById('grid_products').innerHTML = "<%= escape_javascript(render partial: 'list_products', locals: { products: @cart.cart_products, message: @message } ) %>"

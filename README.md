@@ -1,24 +1,22 @@
-# README
+# SimpleCart
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Install
 
-Things you may want to cover:
+```
+git clone https://github.com/marcelobohn/simple-cart.git
+bundle
+rake db:create
+rake db:seed
+```
 
-* Ruby version
+Tests
 
-* System dependencies
+```
+rspec
+```
 
-* Configuration
+Run app
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+rails s
+```
