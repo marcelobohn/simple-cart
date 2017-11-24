@@ -60,12 +60,14 @@ class CartController < ApplicationController
 
   private
     def set_cart
-      @cart = Cart.find_by_session(session.id) || Cart.create(session: session.id)
-      if not @cart.is_valid?
-        @cart.cart_products.map{|a| a.delete}
-        @cart.delete
-        @cart = nil
-        @message = 'Cart was expired'
+      if not session.id.nil?
+        @cart = Cart.find_by_session(session.id) || Cart.create(session: session.id)
+        if not @cart.is_valid?
+          @cart.cart_products.map{|a| a.delete}
+          @cart.delete
+          @cart = nil
+          @message = 'Cart was expired' 
+        end
       end
     end
 

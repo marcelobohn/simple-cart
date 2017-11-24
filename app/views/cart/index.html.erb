@@ -3,12 +3,14 @@
     <%= @message %>
   </div>
 <% else %>
-  <p>Cart ID <%= @cart.session %></p>
+  <% if @cart %>  
+    <p>Cart ID <%= @cart.session %></p>
+  <% end %>
   <div id="form_add_product" >
     <%= render 'add_product' %>
   </div>
   <br />
   <div id="grid_products" >
-    <%= render partial: 'list_products', locals: {products: @cart.cart_products, message: nil} %>
+    <%= render partial: 'list_products', locals: {products: @cart.cart_products, message: nil} if @cart %>
   </div>
 <% end %>
