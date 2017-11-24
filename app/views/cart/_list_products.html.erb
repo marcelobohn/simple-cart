@@ -20,7 +20,7 @@
       <% products.each do |cp| %>
         <tr>
           <td scope="row"><%= cp.product.name %></td>
-          <td class="text-right"><%= format_value cp.product.price %></td>
+          <td class="text-right"><%= format_value cp.value %></td>
           <td class="text-center">
             <%= link_to '-', { action: 'update', id: cp.id, amount: cp.amount - 1 }, method: :post, remote: true, class: 'btn btn-danger btn-sm' if cp.amount > 1%>
             <span style="margin-left: 10px; margin-right: 10px"><%= cp.amount %></span>

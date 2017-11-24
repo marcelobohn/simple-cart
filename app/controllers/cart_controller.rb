@@ -23,7 +23,7 @@ class CartController < ApplicationController
 
       respond_to do |format|
         format.json { render json: cart_product }
-        format.js
+        format.js { render 'cart/list_products.js.erb' }
       end
     else
       render json: { error: 'Product not found' }
@@ -37,7 +37,7 @@ class CartController < ApplicationController
       cart_product.update! amount: params[:amount].to_i, value: cart_product.product.price
       respond_to do |format|
         format.json { render json: { cart_product: cart_product, message: @message || '' } }
-        format.js
+        format.js { render 'cart/list_products.js.erb' }
       end
     else
       render json: { error: 'Product not found' }
@@ -51,7 +51,7 @@ class CartController < ApplicationController
       cart_product.delete
       respond_to do |format|
         format.json { render json: { message: 'Product removed' } }
-        format.js
+        format.js { render 'cart/list_products.js.erb' }
       end
     else
       render json: { error: 'Product not found' }
