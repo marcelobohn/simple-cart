@@ -3,11 +3,11 @@
     <%= @message %>
   </div>
 <% else %>
-  <% if @cart %>  
+  <% if @cart %>
     <p>Cart ID <%= @cart.session %></p>
   <% end %>
   <div id="form_add_product" >
-    <%= render 'add_product' %>
+    <%= render partial: 'add_product' if @products %>
   </div>
   <br />
   <div id="grid_products" >
