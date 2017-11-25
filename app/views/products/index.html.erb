@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Products</h1>
+<h3>Products</h3>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Price</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -15,10 +15,12 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
-        <td><%= product.price %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="text-right"><%= format_value product.price %></td>
+        <td style="width: 250px">
+          <%= link_to 'Show', product, class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'New Product', new_product_path, class: 'btn btn-primary btn-sm' %>

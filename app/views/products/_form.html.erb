@@ -11,17 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :product_name %>
+    <%= form.text_field :name, id: :product_name, class: "form-control form-control-sm" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :price %>
-    <%= form.text_field :price, id: :product_price %>
+    <%= form.text_field :price, id: :product_price, class: "form-control form-control-sm" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary btn-sm" %>
   </div>
 <% end %>
+<hr />
