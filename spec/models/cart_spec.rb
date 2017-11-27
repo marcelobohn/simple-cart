@@ -14,16 +14,16 @@ RSpec.describe Cart, type: :model do
     end
   end
   
- describe "#is_valid" do
-    it "cart valid" do
+ describe "#expired" do
+    it "cart is not expired" do
       cart = Cart.create(session: '672eefead958231d8e9db22c1b4d1954')
-      expect(cart.is_valid?).to be true
+      expect(cart.expired?).to be true
     end
    
-    it "cart invalid" do
+    it "cart is expired" do
       cart = Cart.create(session: '672eefead958231d8e9db22c1b4d1954')
       cart.update(updated_at: Date.today-3)
-      expect(cart.is_valid?).to be false
+      expect(cart.expired?).to be false
     end   
  end
   

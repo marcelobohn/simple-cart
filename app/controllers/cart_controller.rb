@@ -18,7 +18,7 @@ class CartController < ApplicationController
 
   def add
     product = Product.find_by_id params[:id]
-    if !product.nil?
+    unless product.nil?
       cart_product = @cart.cart_products.create! product: product, amount: params[:amount].to_i, value: product.price
 
       respond_to do |format|
@@ -32,7 +32,7 @@ class CartController < ApplicationController
 
   def update
     cart_product = @cart.cart_products.find_by_id params[:id]
-    if !cart_product.nil?
+    unless cart_product.nil?
       @message = 'the product price was updated' if cart_product.value != cart_product.product.price
       cart_product.update! amount: params[:amount].to_i, value: cart_product.product.price
       respond_to do |format|
@@ -46,7 +46,7 @@ class CartController < ApplicationController
 
   def remove
     cart_product = CartProduct.find_by_id params[:id]
-    if !cart_product.nil?
+    unless cart_product.nil?
       @cart = Cart.find(cart_product.cart.id)
       cart_product.delete
       respond_to do |format|
@@ -60,9 +60,9 @@ class CartController < ApplicationController
 
   private
     def set_cart
-      if not session.id.nil?
+      unless session.id.nil?
         @cart = Cart.find_by_session(session.id) || Cart.create(session: session.id)
-        if not @cart.is_valid?
+        unless @cart.expired?
           @cart.cart_products.map{|a| a.delete}
           @cart.delete
           @cart = nil

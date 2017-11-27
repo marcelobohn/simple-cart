@@ -3,7 +3,7 @@ class Cart < ApplicationRecord
   has_many :cart_products
   validates :session, presence: true
   
-  def is_valid?
+  def expired?
     self.updated_at > (Date.today-2) 
   end
 end
