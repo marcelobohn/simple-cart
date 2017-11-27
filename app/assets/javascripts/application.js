@@ -16,3 +16,28 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+
+const setStateCart = (state) => {
+  switch(state) {
+    case 'addProduct':
+      $('#form_add_product').show()
+      $('#grid_products').hide()
+      $('#add_product_to_cart').hide()
+      break;
+    case 'listProducts':
+      $('#form_add_product').hide()
+      $('#grid_products').show()
+      $('#add_product_to_cart').show()
+      break;
+  }   
+}
+
+$( document ).ready(function() {
+  $('#add_product_to_cart').click(() => {
+    setStateCart('addProduct')
+  });  
+  $('#form_add_product').find('#cancel').click((e) => {
+    e.preventDefault()
+    setStateCart('listProducts')
+  });
+});

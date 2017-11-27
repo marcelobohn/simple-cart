@@ -6,11 +6,20 @@
   <% if @cart %>
     <p>Cart ID <%= @cart.session %></p>
   <% end %>
-  <div id="form_add_product" >
+  <div class="text-right">  
+    <button id="add_product_to_cart" class="btn btn-success btn-sm">Add Product</button>
+  </div>
+  <div id="form_add_product">
     <%= render partial: 'add_product' if @products %>
   </div>
   <br />
   <div id="grid_products" >
     <%= render partial: 'list_products', locals: {products: @cart.cart_products, message: nil} if @cart %>
   </div>
+
+  <script>
+    $( document ).ready(function() {
+      setStateCart('<%= @cart && @cart.cart_products.count > 0 ? 'listProducts' : 'addProduct' %>')
+    });       
+  </script>
 <% end %>

@@ -1,7 +1,7 @@
 <div class="card card-sm">
   <h5 class="card-header">New Product</h3>
   <div class="card-body">
-    <%= form_tag({controller: "cart", action: "add"}, method: "post", remote: true, class: "navbar-form navbar-left") do |f| %>
+    <%= form_tag({controller: "cart", action: "add"}, id: 'form_add_product', method: "post", class: "navbar-form navbar-left", remote: true) do |f| %>
       <div class="form-row">
         <div class="form-group col-md-8">
           <%= label_tag :fname, "Product:", class: "control-label" %>
@@ -13,9 +13,10 @@
           <%= text_field_tag "amount", nil, value: 1, class: "form-control form-control-sm", type: "number", min: 1 %>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-2">
+      <div class="form-row text-right">
+        <div class="form-group col-md-12">
           <%= button_tag "Add", class: 'btn btn-primary btn-sm' %>
+          <%= button_tag "Cancel", class: 'btn btn-danger btn-sm', type: :cancel, name: 'cancel', value: true, id: 'cancel' %>
         </div>
       </div>
     <% end %>
