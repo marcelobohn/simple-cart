@@ -44,6 +44,9 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3.6'       # Behaviour Driven Development for Ruby
+  
+  gem 'simplecov', :require => false
+  gem 'simplecov-rcov'    
 end
 
 

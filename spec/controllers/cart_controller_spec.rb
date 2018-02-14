@@ -58,9 +58,9 @@ RSpec.describe CartController, type: :controller do
   end
 
   describe "POST #update" do
-    let!(:p) { Product.create! name: 'Little Ruby', price: 10 }
+    let!(:product) { Product.create! name: 'Little Ruby', price: 10 }
     let!(:cart) { Cart.find_by_session(session.id) || Cart.create(session: session.id) }
-    let!(:cart_product) { cart.cart_products.create!(product: p, amount: 2, value: p.price) }
+    let!(:cart_product) { cart.cart_products.create!(product: product, amount: 2, value: product.price) }
 
     it "update product in cart" do
       post :update, format: :json, params: { id: cart_product.id, amount: 10 }
@@ -73,7 +73,7 @@ RSpec.describe CartController, type: :controller do
     end
 
     it "update product in cart" do
-      p.update price: 20
+      product.update price: 20
       post :update, format: :json, params: { id: cart_product.id, amount: 10 }
       json_body = JSON.parse(response.body)
 
@@ -82,14 +82,24 @@ RSpec.describe CartController, type: :controller do
       expect(json_body["cart_product"]["value"].to_f * json_body["cart_product"]["amount"].to_f).to be 200.0
       expect(json_body["message"]).to eq "the product price was updated"
     end
+    
+
+    it "update product not found" do
+      product.update price: 20
+      post :update, format: :json, params: { id: 0, amount: 10 }
+      json_body = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:success)
+      expect(json_body["error"]).to eq "Product not found"
+    end    
   end
 
   describe "POST #remove" do
     before {
-      cart.cart_products.create!(product: p, amount: 2, value: p.price * 2)
+      cart.cart_products.create!(product: product, amount: 2, value: product.price * 2)
     }
 
-    let!(:p) { Product.create! name: 'Little Ruby', price: 10 }
+    let!(:product) { Product.create! name: 'Little Ruby', price: 10 }
     let!(:cart) { cart = Cart.find_by_session(session.id) || Cart.create(session: session.id) }
 
     it "remove product in cart" do
@@ -99,6 +109,14 @@ RSpec.describe CartController, type: :controller do
       expect(response).to have_http_status(:success)
       expect(json_body["message"]).to eq "Product removed"
     end
+    
+    it "remove product in cart" do
+      post :remove, format: :json, params: { id: 0 }
+      json_body = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:success)
+      expect(json_body["error"]).to eq "Product not found"
+    end    
   end
 
 end
